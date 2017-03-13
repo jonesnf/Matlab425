@@ -1,10 +1,11 @@
+%Nate Jones
 r = audiorecorder(11025, 16, 1);
 recordblocking(r, 3);
 disp('Done recording...');
 x = getaudiodata(r, 'double');
 
 x2 = x;
-x2 = (x2 ./ max(x2))*0.95;
+x2 = (x2 ./ max(abs(x2)))*0.95;
 
 r = audioplayer(x2, 11025);
  
