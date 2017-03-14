@@ -47,7 +47,7 @@ total = 0;
         relErr(i) = sum(i) ./ sqrt(abs(x(i)));   
         total  = total + relErr(i);
     end
-    
+disp(total);
 disp('Finished');
 keydown = waitforbuttonpress;
 
@@ -97,5 +97,6 @@ total = 0;
         relErr(i) = sum(i) ./ sqrt(abs(x(i)));   
         total  = total + relErr(i);
     end
-
+    
+disp(total);
 disp('Finished program');
