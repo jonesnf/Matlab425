@@ -1,9 +1,10 @@
 %Nate Jones
 disp('Recording voice...');
 r = audiorecorder(8000, 16, 1);
-recordblocking(r, 3);
+recordblocking(r, 2);
 disp('Done recording...');
 x = getaudiodata(r, 'double');
+clear sum                            %for some reason I need this at one point to run program
     
 
 x2 = x;
@@ -36,18 +37,10 @@ audiowrite('hw06Noise_8000.wav', y, 8000);
 audiowrite('hw06Filter_8000.wav', z, 8000);
 
 error = x2 - z;
-disp(error);
-    
-relErr = zeros(size(x2));
-sum = zeros(size(x2));
-total = 0;
-    
-    for i = 1: numel(x2)
-        sum(i) = sqrt(abs(x(i) - z(i)));
-        relErr(i) = sum(i) ./ sqrt(abs(x(i)));   
-        total  = total + relErr(i);
-    end
-disp(total);
+
+relErr = sum((abs(error).^2)) / sum((abs(x2).^2));
+
+disp(relErr);
 disp('Finished');
 keydown = waitforbuttonpress;
 
@@ -55,7 +48,7 @@ keydown = waitforbuttonpress;
 
 disp('Recording voice...');
 r = audiorecorder(44100, 16, 1);
-recordblocking(r, 3);
+recordblocking(r, 2);
 disp('Done recording...');
 x = getaudiodata(r, 'double');
 
@@ -82,21 +75,12 @@ z = filter(b, a, y);
 %r = audioplayer(y, 44100);
 %play(r);
 
-error = x - z;
-disp(error);
+error = x2 - z;
+relErr = sum(abs(error).^2)./ sum(abs(x2).^2);
 
 audiowrite('hw06Origin_44100.wav', x2, 44100);
 audiowrite('hw06Noise_44100.wav', y, 44100);
 audiowrite('hw06Filter_44100.wav', z, 44100);
 
-relErr = zeros(size(x2));
-sum = zeros(size(x2));
-total = 0;
-    for i = 1: numel(x2)
-        sum(i) = sqrt(abs(x(i) - z(i)));
-        relErr(i) = sum(i) ./ sqrt(abs(x(i)));   
-        total  = total + relErr(i);
-    end
-    
-disp(total);
+disp(relErr);
 disp('Finished program');
