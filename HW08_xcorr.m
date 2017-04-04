@@ -1,7 +1,7 @@
 %Nate Jones
 disp('Recording voice...');
 r = audiorecorder(11025, 16, 1);
-recordblocking(r, 2);
+recordblocking(r, 1);
 disp('Done recording...');
 x = getaudiodata(r, 'double');
 
@@ -11,7 +11,7 @@ x = (x ./ max(abs(x))) * 0.45;
 r = audioplayer(x, 11025);
 play(r);
 
-disp('waiting for press');
+disp('Press key to continue...');
 keydown = waitforbuttonpress;
 
 audiowrite('hw08Origin_11025.wav', x, 11025);
@@ -42,7 +42,7 @@ end
 
 
 xcr = xcorr(x, y) ./ sqrt(energyX * energyY);
-disp('waiting for press');
+disp('Press key to continue...');
 keydown = waitforbuttonpress;
 
 r = audioplayer(xcr, 11025);
